@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
     return(
@@ -8,3 +8,7 @@ export default function HomeScreen() {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    
+})
