@@ -1,17 +1,31 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
     const router = useRouter();
 
     function onLoginPress() {
-        router.push("/(tabs)/home");
+        router.replace("/(tabs)/home"); // replace = limpa a pilha de telas do app
+    }
+
+    const [secureText, setSecureText] = useState(true);
+
+    function trocarEstadoSenha() {
+        if (secureText === true) {
+            setSecureText(false)
+        } else {
+            setSecureText(true)
+        }
     }
 
     return (
         <>
-            <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? 'padding' : 'height'} // android = height , ios = padding
+                style={styles.container}>
                 <View style={styles.card}>
 
                     <Text style={styles.textTitle}>Login</Text>
@@ -19,13 +33,24 @@ export default function LoginScreen() {
                     <Text style={styles.textLogin}>
                         E-mail
                     </Text>
-                    <TextInput style={styles.inputLogin} placeholder="Ex: seuemail@email.com" keyboardType="default"></TextInput>
+                    <TextInput style={styles.inputLogin} placeholder="Ex: email@example.com" keyboardType="email-address"></TextInput>
 
                     <Text style={styles.textLogin}>
                         Senha
                     </Text>
-                    <TextInput style={styles.inputLogin} placeholder="********" keyboardType="default" secureTextEntry={true}></TextInput>
-
+                    <View style={styles.passwordContainer}>
+                        <TextInput style={styles.passwordInput} placeholder="********" keyboardType="default" secureTextEntry={secureText}></TextInput>
+                        <TouchableOpacity
+                            onPress={trocarEstadoSenha}
+                            style={styles.iconContainer}
+                        >
+                            <Ionicons
+                                name={secureText ? "eye-off-outline" : "eye-outline"}
+                                size={20}
+                                color={"#8e8e93"}
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <TouchableOpacity
                         style={styles.botaoLogin}
                         onPress={onLoginPress}
@@ -34,7 +59,7 @@ export default function LoginScreen() {
                     </TouchableOpacity>
 
                 </View>
-            </SafeAreaView>
+            </KeyboardAvoidingView>
         </>
     )
 }
@@ -94,5 +119,29 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginBottom: 15
 
+    },
+    passwordContainer: {
+        flexDirection: "row",
+        width: "100%",
+        height: 50,
+        borderWidth: 1,
+        borderColor: "#e5e5ea",
+        borderRadius: 12,
+        backgroundColor: "#fbfbfd",
+        marginBottom: 10,
+        overflow: "hidden"
+    },
+
+    passwordInput: {
+        flex: 1,
+        paddingHorizontal: 15,
+        fontSize: 16,
+        color: "#1c1c1e"
+    },
+
+    iconContainer: {
+        justifyContent: "center",
+        paddingHorizontal: 15
     }
+
 })
