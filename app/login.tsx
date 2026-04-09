@@ -55,7 +55,7 @@ export default function LoginScreen() {
                         style={styles.botaoLogin}
                         onPress={onLoginPress}
                     >
-                        <Text>Entrar</Text>
+                        <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     },
     botaoLogin: {
 
-        backgroundColor: "#639aff",
+        backgroundColor: "#ef233c",
         paddingVertical: 12,
         paddingHorizontal: 30,
         borderRadius: 25,
@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
         padding: 30,
         borderRadius: 15,
         alignItems: "center",
+        borderWidth: 0.5,
+        borderColor: "#ef233c",
 
         // Sombras
         shadowColor: "#000000",
@@ -112,11 +114,12 @@ const styles = StyleSheet.create({
         alignSelf: "flex-start"
     },
     inputLogin: {
-        backgroundColor: '#e7e7e7',
-        marginStart: 7,
-        marginEnd: 7,
+        backgroundColor: '#fbfbfd',
+        borderColor: "#e5e5ea",
+        borderWidth: 1,
         width: "100%",
-        borderRadius: 10,
+        height: 50,
+        borderRadius: 12,
         marginBottom: 15
 
     },
@@ -142,6 +145,10 @@ const styles = StyleSheet.create({
     iconContainer: {
         justifyContent: "center",
         paddingHorizontal: 15
+    },
+
+    botaoText: {
+        color: "#FFF"
     }
 
 })

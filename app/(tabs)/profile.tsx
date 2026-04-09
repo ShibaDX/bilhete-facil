@@ -25,11 +25,20 @@ export default function ProfileScreen() {
                     <View style={styles.info}>
                         <Text style={styles.textName}>Yuri Alberto</Text>
                         <Text style={styles.textBio}>
-                            Artilheiro do Corinthians
+                            Estudante
                         </Text>
                     </View>
-
                 </View>
+
+                {/* Novo texto adicionado aqui */}
+                <Text style={styles.dataEntrada}>
+                    <Ionicons
+                        name={"calendar-clear-outline"}
+                        size={20}
+                        color={"#8e8e93"}
+                    />  Membro desde: 21/12/2025
+                </Text>
+
                 <TouchableOpacity
                     style={styles.botaoSair}
                     onPress={onSairPress}
@@ -45,7 +54,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#edf2f4",
         justifyContent: "center",
         alignItems: "center",
         padding: 20
@@ -54,8 +63,9 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: "#FFF",
         padding: 20,
+        borderWidth: 0.4,
+        borderColor: "#ef233c",
         borderRadius: 15,
-
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -66,13 +76,13 @@ const styles = StyleSheet.create({
         maxWidth: 350
     },
 
-    // 🔥 NOVO: container da linha
+
     header: {
         flexDirection: "row",
         alignItems: "center"
     },
 
-    // 🔥 NOVO: container dos textos
+
     info: {
         marginLeft: 15,
         flex: 1
@@ -91,14 +101,13 @@ const styles = StyleSheet.create({
     },
 
     textBio: {
-        fontSize: 14,
-        color: "#666",
-        marginTop: 5
+        fontSize: 13,
+        color: "#666"
     },
 
     botaoSair: {
         marginTop: 20,
-        backgroundColor: "#ff3b41",
+        backgroundColor: "#ef233c",
         paddingVertical: 12,
         paddingHorizontal: 30,
         borderRadius: 25,
@@ -106,10 +115,15 @@ const styles = StyleSheet.create({
     },
 
     botaoText: {
-        color: "#FFF"
+        color: "#FFF",
     },
 
     dataEntrada: {
+        fontSize: 12,
+        color: "#999",       // Um cinza mais claro para não brigar com o nome
+        marginTop: 15,       // Dá um respiro em relação ao header
+        textAlign: "center",  // Centraliza no card para ficar alinhado com o botão
 
     },
+
 });
