@@ -51,6 +51,8 @@ export default function ProfileScreen() {
     )
 }
 
+{/* site de paleta de cores: https://coolors.co/palettes/popular/red */}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

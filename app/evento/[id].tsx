@@ -49,12 +49,36 @@ export default function DetalhesEventoScreen() {
                     <Text style={styles.titulo}>{eventoSelecionado.titulo}</Text>
                     <Text style={styles.preco}>{eventoSelecionado.preco}</Text>
 
-                    <Text>
+                    <Text style={styles.conteudoTitulo}>
                         <Ionicons
                             name={"location-outline"}
                             size={24}
-                            color={"#8e8e93"} />
+                            color={"#d90429"} /> Local
                     </Text>
+                    <Text style={styles.conteudoTexto}>
+                        {eventoSelecionado.local}
+                    </Text>
+
+                    <Text style={styles.conteudoTitulo}>
+                        <Ionicons
+                            name={"time-outline"}
+                            size={24}
+                            color={"#d90429"} /> Data e Horário
+                    </Text>
+                    <Text style={styles.conteudoTexto}>
+                        {eventoSelecionado.data}
+                    </Text>
+
+                    <Text style={styles.conteudoTitulo}>
+                        <Ionicons
+                            name={"paper-plane-outline"}
+                            size={24}
+                            color={"#d90429"} /> Saiba mais
+                    </Text>
+                    <Text style={styles.conteudoTexto}>
+                        Prepare-se para mergulhar no futuro da tecnologia! Este evento reúne mentes criativas para discutir as últimas tendências em inovação, arquitetura de sistemas e desenvolvimento de software. Uma excelente oportunidade para fazer networking, trocar ideias sobre projetos reais e descobrir as ferramentas que estão moldando o mercado atual.
+                    </Text>
+
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -106,5 +130,14 @@ const styles = StyleSheet.create({
         top: 15,              // Distância do topo
         left: 15,             // Distância da esquerda
         zIndex: 10,           // Garante que fique por cima da imagem da capa
+    },
+    conteudoTitulo: {
+        fontSize: 24,
+        fontWeight: "700"
+    },
+    conteudoTexto: {
+        fontSize: 18,
+        marginTop: 5,
+        marginBottom: 15
     }
 });
