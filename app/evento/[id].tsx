@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { DADOS_EVENTOS } from "../(tabs)/mocks/event"; // Verifique se o caminho do import está correto para a sua estrutura
 import { Ionicons } from "@expo/vector-icons";
 
@@ -23,6 +23,19 @@ export default function DetalhesEventoScreen() {
 
         );
     }
+
+        function eventoAdicionarPress() {
+            Alert.alert(
+                "Adicionado",
+                "O evento foi adicionado no seu carrinho!",
+                [
+                    {
+                        text: "Ok"
+    
+                    }
+                ]
+            );
+        }
 
     // 4. Renderiza a tela dinamicamente usando os dados do evento encontrado
     return (
@@ -73,11 +86,20 @@ export default function DetalhesEventoScreen() {
                         <Ionicons
                             name={"paper-plane-outline"}
                             size={24}
-                            color={"#d90429"} /> Saiba mais
+                            color={"#d90429"} /> Sobre o evento
                     </Text>
                     <Text style={styles.conteudoTexto}>
                         Prepare-se para mergulhar no futuro da tecnologia! Este evento reúne mentes criativas para discutir as últimas tendências em inovação, arquitetura de sistemas e desenvolvimento de software. Uma excelente oportunidade para fazer networking, trocar ideias sobre projetos reais e descobrir as ferramentas que estão moldando o mercado atual.
                     </Text>
+
+                    <TouchableOpacity style={styles.botaoInscrever} onPress={eventoAdicionarPress}>
+                        <Text style={styles.textoInscrever}>
+                            <Ionicons
+                                name={"ticket"}
+                                size={20}
+                                color={"#ffffff"}
+                            /> Garantir Ingresso</Text>
+                    </TouchableOpacity>
 
                 </View>
             </ScrollView>
@@ -139,5 +161,22 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 5,
         marginBottom: 15
+    },
+    botaoInscrever: {
+        backgroundColor: "#d90429",
+        paddingVertical: 15,
+        paddingHorizontal: 60,
+        marginBottom: 10,
+        marginStart: -20,
+        marginTop: 10,
+        borderRadius: 15,
+        alignItems: "center",
+        alignSelf: 'center'
+
+    },
+    textoInscrever: {
+        fontSize: 20,
+        color: '#FFF',
+        fontWeight: 700
     }
 });

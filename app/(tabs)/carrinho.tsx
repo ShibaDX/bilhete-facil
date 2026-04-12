@@ -21,6 +21,19 @@ export default function CarrinhoScreen() {
         );
     }
 
+    function eventoFinalizarPress() {
+        Alert.alert(
+            "Concluído",
+            "Sua presença foi confirmada!",
+            [
+                {
+                    text: "Ok"
+
+                }
+            ]
+        );
+    }
+
     function renderEvento({ item }) {
         return (
             <View style={styles.card}>
@@ -64,14 +77,14 @@ export default function CarrinhoScreen() {
                 contentContainerStyle={styles.body}
             />
 
-<View style={styles.finalizar}>
+            <View style={styles.finalizar}>
                 {/* Agrupamos os textos aqui */}
-                <View> 
-                    <Text style={styles.valorTotal}>Total: R$250,00</Text>
+                <View>
+                    <Text style={styles.valorTotal}>Total: R$200,00</Text>
                     <Text style={styles.quantidade}>3 itens</Text>
                 </View>
 
-                <TouchableOpacity style={styles.botaoFinalizar}>
+                <TouchableOpacity style={styles.botaoFinalizar} onPress={eventoFinalizarPress}>
                     <Text style={styles.textoFinalizar}>Finalizar Compra</Text>
                 </TouchableOpacity>
             </View>
@@ -152,7 +165,7 @@ const styles = StyleSheet.create({
         color: "#8e8e93"
     },
 
-botaoFinalizar: {
+    botaoFinalizar: {
         backgroundColor: "#d90429",
         paddingVertical: 12,
         paddingHorizontal: 20, // Diminuí de 40 para 20 para que o botão não esmague os textos
@@ -174,14 +187,14 @@ botaoFinalizar: {
         padding: 5,           // Dá uma área de toque um pouco maior ao redor do ícone
     },
 
-finalizar: {
+    finalizar: {
         flexDirection: "row",              // Coloca os itens lado a lado
         justifyContent: "space-between",   // Empurra a view de textos pra esquerda e o botão pra direita
         alignItems: "center",              // Centraliza verticalmente o botão com os textos
         width: "100%",                     // Garante que a barra ocupe toda a largura da tela
         paddingHorizontal: 20,             // Dá um espaço das bordas laterais do celular
         paddingVertical: 15,               // Dá um respiro em cima e embaixo dos elementos
-        backgroundColor: "#FFF",           
+        backgroundColor: "#FFF",
         borderTopWidth: 1.5,                 // (Opcional) Cria uma linha sutil para separar do resto da lista
         borderColor: "#ef233c"
     },

@@ -28,7 +28,7 @@ export default function TabLayout() {
                 name="carrinho"
                 options={{
                     title: "Carrinho",
-                    tabBarIcon: ({ color }) => <FontAwesome name="cart-plus" size={24} color={color} />
+                    tabBarIcon: ({ color }) => <FontAwesome name="shopping-cart" size={24} color={color} />
                 }}
             />
 
