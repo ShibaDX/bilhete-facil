@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity, FlatList, Alert } from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, Alert } from "react-native";
 import { DADOS_EVENTOS } from "./mocks/event";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -78,7 +78,7 @@ export default function CarrinhoScreen() {
             />
 
             <View style={styles.finalizar}>
-                {/* Agrupamos os textos aqui */}
+                
                 <View>
                     <Text style={styles.valorTotal}>Total: R$200,00</Text>
                     <Text style={styles.quantidade}>3 itens</Text>
@@ -99,15 +99,15 @@ const styles = StyleSheet.create({
         height: 60,
         width: "100%",
         backgroundColor: '#FFF',
-        justifyContent: 'center', // <-- Isso centraliza tudo verticalmente!
+        justifyContent: 'center',
     },
     titulo: {
         fontSize: 28,
         fontFamily: 'Rubik',
-        fontWeight: "800", // Lembre-se que o React Native prefere strings no fontWeight
+        fontWeight: "800", 
         marginStart: 15,
         color: '#d90429',
-        // marginBottom: 15 foi removido para não atrapalhar o centro
+       
     },
     body: {
         backgroundColor: "#FFF",
@@ -126,20 +126,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ef233c",
         flexDirection: "row",
-        position: 'relative' // <-- Adicione isto para o posicionamento absoluto funcionar corretamente
+        position: 'relative'
     },
     cardImg: {
         height: "100%",
         width: 90,
-        // Removi o marginBottom que tinha aqui, não é mais necessário
+       
     },
     infoText: {
-        flex: 1,                  // Faz o texto ocupar todo o espaço restante à direita da imagem
-        justifyContent: "center", // Centraliza o bloco de texto verticalmente
-        paddingHorizontal: 15,    // Dá um respiro entre a imagem, o texto e a borda direita
+        flex: 1,                  
+        justifyContent: "center", 
+        paddingHorizontal: 15,   
     },
 
-    // Diminuí levemente os tamanhos de fonte e margens para caberem perfeitamente nos 100px de altura
+   
     cardTitulo: {
         fontSize: 15,
         fontWeight: "700",
@@ -168,10 +168,10 @@ const styles = StyleSheet.create({
     botaoFinalizar: {
         backgroundColor: "#d90429",
         paddingVertical: 12,
-        paddingHorizontal: 20, // Diminuí de 40 para 20 para que o botão não esmague os textos
+        paddingHorizontal: 20, 
         borderRadius: 15,
         alignItems: "center",
-        // Removi o marginBottom: 10 que tinha aqui, não é mais necessário nessa disposição
+       
     },
 
     textoFinalizar: {
@@ -181,33 +181,33 @@ const styles = StyleSheet.create({
     },
 
     botaoRemover: {
-        position: 'absolute', // Define posição absoluta
-        bottom: 8,            // 8px de distância da borda inferior
-        right: 8,              // 8px de distância da borda esquerda
-        padding: 5,           // Dá uma área de toque um pouco maior ao redor do ícone
+        position: 'absolute', 
+        bottom: 8,          
+        right: 8,           
+        padding: 5,          
     },
 
     finalizar: {
-        flexDirection: "row",              // Coloca os itens lado a lado
-        justifyContent: "space-between",   // Empurra a view de textos pra esquerda e o botão pra direita
-        alignItems: "center",              // Centraliza verticalmente o botão com os textos
-        width: "100%",                     // Garante que a barra ocupe toda a largura da tela
-        paddingHorizontal: 20,             // Dá um espaço das bordas laterais do celular
-        paddingVertical: 15,               // Dá um respiro em cima e embaixo dos elementos
+        flexDirection: "row",             
+        justifyContent: "space-between",  
+        alignItems: "center",              
+        width: "100%",                     
+        paddingHorizontal: 20,            
+        paddingVertical: 15,              
         backgroundColor: "#FFF",
-        borderTopWidth: 1.5,                 // (Opcional) Cria uma linha sutil para separar do resto da lista
+        borderTopWidth: 1.5,               
         borderColor: "#ef233c"
     },
     valorTotal: {
-        fontSize: 20,                      // Diminuí um pouquinho (era 22) para caber melhor
+        fontSize: 20,                      
         fontWeight: "700",
         color: "#333",
     },
     quantidade: {
         fontSize: 14,
         fontWeight: "400",
-        color: "#666",                     // Um tom de cinza para diferenciar do total
-        marginTop: 2                       // Espacinho entre o total e a quantidade
+        color: "#666",                  
+        marginTop: 2               
     },
 
 })

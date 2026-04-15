@@ -6,14 +6,13 @@ import { Ionicons } from "@expo/vector-icons";
 
 
 export default function DetalhesEventoScreen() {
-    // 1. Pesca o ID que veio lá da HomeScreen
+    // pega o ID que veio da HomeScreen
     const { id } = useLocalSearchParams();
     const router = useRouter();
 
-    // 2. Procura na sua lista mockada qual evento tem esse exato ID
     const eventoSelecionado = DADOS_EVENTOS.find((evento) => evento.id === id);
 
-    // 3. Tratamento de erro básico caso o evento não seja encontrado
+    // tratamento de erro caso o evento não seja encontrado
     if (!eventoSelecionado) {
         return (
 
@@ -37,7 +36,7 @@ export default function DetalhesEventoScreen() {
             );
         }
 
-    // 4. Renderiza a tela dinamicamente usando os dados do evento encontrado
+    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#edf2f4" }}>
             <ScrollView style={styles.container}>
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     botaoVoltar: {
-        width: 40,            // Aumentei levemente para melhorar a área de clique
+        width: 40,         
         height: 40,
         backgroundColor: "#FFF",
         borderRadius: 50,
@@ -147,11 +146,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
 
-        // --- MÁGICA DO POSICIONAMENTO AQUI ---
-        position: "absolute", // Faz o botão flutuar ignorando o fluxo da tela
-        top: 15,              // Distância do topo
-        left: 15,             // Distância da esquerda
-        zIndex: 10,           // Garante que fique por cima da imagem da capa
+       
+        position: "absolute", 
+        top: 15,              
+        left: 15,             
+        zIndex: 10,           
     },
     conteudoTitulo: {
         fontSize: 24,

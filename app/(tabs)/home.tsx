@@ -6,11 +6,11 @@ import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
 
-    const router = useRouter(); // <-- 2. Inicialize o roteador
+    const router = useRouter(); 
 
-    // 3. Crie a função de navegação
+    
     function botaoInscreverPress(idEvento) {
-        // Redireciona para a pasta 'evento' e passa o ID dinâmico na URL
+       
         router.push(`/evento/${idEvento}`); 
     }
 
@@ -59,8 +59,7 @@ export default function HomeScreen() {
 
                     {/* flatlist funciona igual o map, porém, é mais eficiente quando há uma grande quantidade de dados 
                     pois renderiza apenas alguns itens de cada vez, enquanto o map já faz todos de uma vez, o que poderia
-                    afetar muito negativamente o desempenho
-                */}
+                    afetar muito negativamente o desempenho*/}
                     <FlatList
                         data={DADOS_EVENTOS}
                         keyExtractor={(item) => item.id}
@@ -167,10 +166,10 @@ const styles = StyleSheet.create({
     },
 
     divisor: {
-        height: 1,                  // A espessura da linha
-        backgroundColor: "#e0e0e0", // Um cinza claro para ficar sutil
-        marginRight: 20,            // Para não colar na borda direita do card
-        marginBottom: 10            // Espaço entre a linha e a data
+        height: 1,                 
+        backgroundColor: "#e0e0e0", 
+        marginRight: 20,            
+        marginBottom: 10           
     },
 
 })

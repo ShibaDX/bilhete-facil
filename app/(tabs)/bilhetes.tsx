@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { Text, StyleSheet, View, Image, FlatList, ScrollView } from "react-native";
 import { DADOS_BILHETES } from "./mocks/bilhete";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -73,10 +73,10 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 28,
         fontFamily: 'Rubik',
-        fontWeight: "800", // Lembre-se que o React Native prefere strings no fontWeight
+        fontWeight: "800", 
         marginStart: 15,
         color: '#d90429',
-        // marginBottom: 15 foi removido para não atrapalhar o centro
+       
     },
     body: {
         backgroundColor: "#FFF",
@@ -95,20 +95,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ef233c",
         flexDirection: "row",
-        position: 'relative' // <-- Adicione isto para o posicionamento absoluto funcionar corretamente
+        position: 'relative' 
     },
     cardImg: {
         height: "100%",
         width: 90,
-        // Removi o marginBottom que tinha aqui, não é mais necessário
+       
     },
     infoText: {
-        flex: 1,                  // Faz o texto ocupar todo o espaço restante à direita da imagem
-        justifyContent: "center", // Centraliza o bloco de texto verticalmente
-        paddingHorizontal: 15,    // Dá um respiro entre a imagem, o texto e a borda direita
+        flex: 1,                 
+        justifyContent: "center", 
+        paddingHorizontal: 15,    
     },
 
-    // Diminuí levemente os tamanhos de fonte e margens para caberem perfeitamente nos 100px de altura
+    
     cardTitulo: {
         fontSize: 15,
         fontWeight: "700",
@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
     quantidade: {
         fontSize: 14,
         fontWeight: "400",
-        color: "#666",                     // Um tom de cinza para diferenciar do total
-        marginTop: 2,                       // Espacinho entre o total e a quantidade
+        color: "#666",                    
+        marginTop: 2,                     
         marginStart: 15,
         marginBottom: 15
     },
@@ -143,21 +143,20 @@ const styles = StyleSheet.create({
     },
 
     linhaPontilhada: {
-        height: 0,                   // A View não tem altura real, é só a borda
-        borderWidth: 1,              // Espessura do pontilhado
-        borderColor: '#ccc',         // Um cinza claro para ficar sutil
-        borderStyle: 'dashed',       // O segredo do pontilhado
-        borderRadius: 1,             // Hack obrigatório para o pontilhado funcionar no Android!
-        marginTop: 10,               // Espaço acima da linha
-        marginBottom: 5,             // Espaço abaixo da linha
+        height: 0,                  
+        borderWidth: 1,            
+        borderColor: '#ccc',        
+        borderStyle: 'dashed',      
+        borderRadius: 1,            
+        marginTop: 10,             
+        marginBottom: 5,           
     },
 
     cardCodigo: {
         justifyContent: "center",
         textAlign: "center",
-        // Removi o marginTop: 10 daqui, pois agora a linha pontilhada já está dando esse espaçamento
-        fontWeight: "bold",          // (Opcional) Fica legal deixar o código em negrito!
-        letterSpacing: 2,            // (Opcional) Afasta um pouquinho as letras para parecer código de barras
+        fontWeight: "bold",          
+        letterSpacing: 2,            
         color: "#333"
     }
 })

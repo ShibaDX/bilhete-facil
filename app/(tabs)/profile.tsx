@@ -30,7 +30,7 @@ export default function ProfileScreen() {
                     </View>
                 </View>
 
-                {/* Novo texto adicionado aqui */}
+              
                 <Text style={styles.dataEntrada}>
                     <Ionicons
                         name={"calendar-clear-outline"}
@@ -122,9 +122,9 @@ const styles = StyleSheet.create({
 
     dataEntrada: {
         fontSize: 12,
-        color: "#999",       // Um cinza mais claro para não brigar com o nome
-        marginTop: 15,       // Dá um respiro em relação ao header
-        textAlign: "center",  // Centraliza no card para ficar alinhado com o botão
+        color: "#999",      
+        marginTop: 15,      
+        textAlign: "center"
 
     },
 
