@@ -1,14 +1,27 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+/*import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
-import { DADOS_EVENTOS } from "../(tabs)/mocks/event"; // Verifique se o caminho do import está correto para a sua estrutura
+import { DADOS_EVENTOS } from "../(tabs)/mocks/event";
 import { Ionicons } from "@expo/vector-icons";
+import { useCart } from "../../contexts/CartContext";
+import { Event } from "../(tabs)/types/event";
 
 
 export default function DetalhesEventoScreen() {
+
+  // Resgata os parâmetros passados na navegação
+  const { id, titulo, local, imagem, data, preco } = useLocalSearchParams<Event>();
+  const { adicionarItem, estaNoCarrinho } = useCart();
+  const router = useRouter();
+
+  const primaryColor = '#007AFF';
+  const noCarrinho = estaNoCarrinho(id as string);
+
     // pega o ID que veio da HomeScreen
     const { id } = useLocalSearchParams();
     const router = useRouter();
+
+    const { adicionarItem } = useCart();
 
     const eventoSelecionado = DADOS_EVENTOS.find((evento) => evento.id === id);
 
@@ -24,16 +37,8 @@ export default function DetalhesEventoScreen() {
     }
 
         function eventoAdicionarPress() {
-            Alert.alert(
-                "Adicionado",
-                "O evento foi adicionado no seu carrinho!",
-                [
-                    {
-                        text: "Ok"
-    
-                    }
-                ]
-            );
+            adicionarItem(evento!);
+            router.push("/cart")
         }
 
     
@@ -178,4 +183,4 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 700
     }
-});
+}); */

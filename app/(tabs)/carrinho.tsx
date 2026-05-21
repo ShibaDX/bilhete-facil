@@ -2,8 +2,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, Alert } from "react-native";
 import { DADOS_EVENTOS } from "./mocks/event";
 import { Ionicons } from "@expo/vector-icons";
+import { useCart } from "../../contexts/CartContext";
 
 export default function CarrinhoScreen() {
+
+    const { itens, carregando, removerItem, limparCarrinho, totalItens, totalFormatado } = useCart();
 
     function eventoRemoverPress() {
         Alert.alert(
@@ -21,18 +24,22 @@ export default function CarrinhoScreen() {
         );
     }
 
-    function eventoFinalizarPress() {
-        Alert.alert(
-            "Concluído",
-            "Sua presença foi confirmada!",
-            [
-                {
-                    text: "Ok"
-
-                }
-            ]
-        );
-    }
+  const confirmarFinalizacao = () => {
+    Alert.alert(
+      'Finalizar Compra',
+      `Confirmar compra de ${totalItens} ${totalItens === 1 ? 'ingresso' : 'ingressos'} por ${totalFormatado}?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Confirmar',
+          onPress: async () => {
+            await limparCarrinho();
+            Alert.alert('Compra realizada!', 'Seus ingressos foram confirmados.');
+          },
+        },
+      ]
+    );
+  };
 
     function renderEvento({ item }) {
         return (
@@ -84,7 +91,7 @@ export default function CarrinhoScreen() {
                     <Text style={styles.quantidade}>3 itens</Text>
                 </View>
 
-                <TouchableOpacity style={styles.botaoFinalizar} onPress={eventoFinalizarPress}>
+                <TouchableOpacity style={styles.botaoFinalizar} onPress={confirmarFinalizacao}>
                     <Text style={styles.textoFinalizar}>Finalizar Compra</Text>
                 </TouchableOpacity>
             </View>

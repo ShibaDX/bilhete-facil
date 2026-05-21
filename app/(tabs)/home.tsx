@@ -1,17 +1,19 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity, FlatList, ScrollView, Alert, ActivityIndicator } from "react-native";
 import { DADOS_EVENTOS } from "./mocks/event";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { buscarEventos } from "../../services/eventService";
+import { useEffect, useState } from "react";
 
 export default function HomeScreen() {
 
-    const router = useRouter(); 
+    const router = useRouter();
+    const [carregando, setCarregando] = useState(false);
 
-    
     function botaoInscreverPress(idEvento) {
-       
-        router.push(`/evento/${idEvento}`); 
+
+        router.push(`/evento/${idEvento}`);
     }
 
     function renderEvento({ item }) {
@@ -48,6 +50,23 @@ export default function HomeScreen() {
         )
     }
 
+    async function carregarEventos() {
+        setCarregando(true);
+
+        const resultadoBusca = await buscarEventos();
+        
+        setCarregando(false);
+
+        const resultadoString = JSON.stringify(resultadoBusca)
+
+        Alert.alert("Resultado da busca ", resultadoString);
+    }
+
+    // quando a tela for carregada
+    useEffect(() => {
+        carregarEventos()
+    }, [])
+
     return (
         <SafeAreaView>
             <ScrollView>
@@ -55,6 +74,7 @@ export default function HomeScreen() {
                     <Text style={styles.titulo}>Descubra Eventos</Text>                           {/* define o tipo de teclado do input, impacta no UX */}
                     <TextInput style={styles.barraPesquisa} placeholder="Buscar eventos, shows, palestras..." keyboardType="default"></TextInput>
                 </View>
+
                 <View style={styles.body}>
 
                     {/* flatlist funciona igual o map, porém, é mais eficiente quando há uma grande quantidade de dados 
@@ -68,6 +88,9 @@ export default function HomeScreen() {
                     />
 
                 </View>
+                {
+                    carregando && (<ActivityIndicator size={"large"} color={"#007ADD"} />)
+                }
             </ScrollView>
         </SafeAreaView>
     )
@@ -166,10 +189,13 @@ const styles = StyleSheet.create({
     },
 
     divisor: {
-        height: 1,                 
-        backgroundColor: "#e0e0e0", 
-        marginRight: 20,            
-        marginBottom: 10           
+        height: 1,
+        backgroundColor: "#e0e0e0",
+        marginRight: 20,
+        marginBottom: 10
     },
+    loading: {
+        marginTop: 60,
 
+    }
 })
