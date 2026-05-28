@@ -1,47 +1,32 @@
-/*import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { DADOS_EVENTOS } from "../(tabs)/mocks/event";
+import React, { useEffect, useState } from 'react';
 import { Ionicons } from "@expo/vector-icons";
-import { useCart } from "../../contexts/CartContext";
+import { useCart } from '../../hooks/useCart';
 import { Event } from "../(tabs)/types/event";
+import { buscarEventoPorId } from "../../services/eventService";
 
 
 export default function DetalhesEventoScreen() {
-
-  // Resgata os parâmetros passados na navegação
-  const { id, titulo, local, imagem, data, preco } = useLocalSearchParams<Event>();
-  const { adicionarItem, estaNoCarrinho } = useCart();
-  const router = useRouter();
-
-  const primaryColor = '#007AFF';
-  const noCarrinho = estaNoCarrinho(id as string);
-
-    // pega o ID que veio da HomeScreen
-    const { id } = useLocalSearchParams();
+        // resgata os parâmetros passados na navegação
+    const { id } = useLocalSearchParams<{ id: string }>();
+    const [event, setEvent] = useState<Event | null>(null);
     const router = useRouter();
+    const { adicionarItem, estaNoCarrinho } = useCart();
 
-    const { adicionarItem } = useCart();
+    const noCarrinho = estaNoCarrinho(id as string);
 
-    const eventoSelecionado = DADOS_EVENTOS.find((evento) => evento.id === id);
-
-    // tratamento de erro caso o evento não seja encontrado
-    if (!eventoSelecionado) {
-        return (
-
-            <View style={styles.containerErro}>
-                <Text>Evento não encontrado.</Text>
-            </View>
-
-        );
+    async function carregarEvento() {
+        const eventoCarregado = await buscarEventoPorId(id);
+        setEvent(eventoCarregado);
     }
 
-        function eventoAdicionarPress() {
-            adicionarItem(evento!);
-            router.push("/cart")
-        }
+    useEffect(() => {
+        carregarEvento()
+    }, [])
 
-    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#edf2f4" }}>
             <ScrollView style={styles.container}>
@@ -58,13 +43,13 @@ export default function DetalhesEventoScreen() {
                 </TouchableOpacity>
 
                 <Image
-                    source={{ uri: eventoSelecionado.imagem }}
+                    source={{ uri: event?.imagem }}
                     style={styles.imagemCapa}
                 />
 
                 <View style={styles.conteudo}>
-                    <Text style={styles.titulo}>{eventoSelecionado.titulo}</Text>
-                    <Text style={styles.preco}>{eventoSelecionado.preco}</Text>
+                    <Text style={styles.titulo}>{event?.titulo}</Text>
+                    <Text style={styles.preco}>{event?.preco}</Text>
 
                     <Text style={styles.conteudoTitulo}>
                         <Ionicons
@@ -73,7 +58,7 @@ export default function DetalhesEventoScreen() {
                             color={"#d90429"} /> Local
                     </Text>
                     <Text style={styles.conteudoTexto}>
-                        {eventoSelecionado.local}
+                        {event?.local}
                     </Text>
 
                     <Text style={styles.conteudoTitulo}>
@@ -83,7 +68,7 @@ export default function DetalhesEventoScreen() {
                             color={"#d90429"} /> Data e Horário
                     </Text>
                     <Text style={styles.conteudoTexto}>
-                        {eventoSelecionado.data}
+                        {event?.data}
                     </Text>
 
                     <Text style={styles.conteudoTitulo}>
@@ -96,13 +81,33 @@ export default function DetalhesEventoScreen() {
                         Prepare-se para mergulhar no futuro da tecnologia! Este evento reúne mentes criativas para discutir as últimas tendências em inovação, arquitetura de sistemas e desenvolvimento de software. Uma excelente oportunidade para fazer networking, trocar ideias sobre projetos reais e descobrir as ferramentas que estão moldando o mercado atual.
                     </Text>
 
-                    <TouchableOpacity style={styles.botaoInscrever} onPress={eventoAdicionarPress}>
+                    <TouchableOpacity style={styles.botaoInscrever}
+                        onPress={async () => {
+                            if (noCarrinho) {
+                                router.push('/(tabs)/cart');
+                                return;
+                            }
+                            await adicionarItem({
+                                id: id as string,
+                                titulo: event?.titulo as string,
+                                local: event?.local as string,
+                                imagem: event?.imagem as string,
+                                data: event?.data as string,
+                                preco: event?.preco as string,
+                            });
+                            Alert.alert('Adicionado!', `"${event?.titulo}" foi adicionado ao carrinho.`, [
+                                { text: 'Ver Carrinho', onPress: () => router.push('/(tabs)/cart') },
+                                { text: 'Continuar', style: 'cancel' },
+                            ]);
+                        }}
+
+                    >
                         <Text style={styles.textoInscrever}>
                             <Ionicons
                                 name={"ticket"}
                                 size={20}
                                 color={"#ffffff"}
-                            /> Garantir Ingresso</Text>
+                            /> {noCarrinho ? 'Ver no Carrinho' : 'Garantir Ingresso'}</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -142,7 +147,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     botaoVoltar: {
-        width: 40,         
+        width: 40,
         height: 40,
         backgroundColor: "#FFF",
         borderRadius: 50,
@@ -151,11 +156,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
 
-       
-        position: "absolute", 
-        top: 15,              
-        left: 15,             
-        zIndex: 10,           
+
+        position: "absolute",
+        top: 15,
+        left: 15,
+        zIndex: 10,
     },
     conteudoTitulo: {
         fontSize: 24,
@@ -183,4 +188,4 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontWeight: 700
     }
-}); */
+}); 

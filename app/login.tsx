@@ -3,12 +3,39 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { logar } from "../services/loginService";
 
 export default function LoginScreen() {
     const router = useRouter();
 
-    function onLoginPress() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+
+/* 
+	"email": "aluno@unialfa.com.br",
+	"password": "unialfa123"
+*/
+
+    async function clicouEmLogar() {
+        if (!email) {
+            Alert.alert("Atenção!", "Email é obrigatório.")
+            return;
+        }
+
+        if (!senha) {
+            Alert.alert("Atenção!", "Senha é obrigatório.")
+            return;
+        }
+
+        const token = await logar(email, senha);
+
+        if (!token) {
+            Alert.alert("Atenção!", "Falha ao realizar login, tente novamente.")
+            return;
+        }
+
         router.replace("/(tabs)/home"); // replace = limpa a pilha de telas do app
+
     }
 
     const [secureText, setSecureText] = useState(true);
@@ -33,13 +60,13 @@ export default function LoginScreen() {
                     <Text style={styles.textLogin}>
                         E-mail
                     </Text>
-                    <TextInput style={styles.inputLogin} placeholder="Ex: email@example.com" keyboardType="email-address"></TextInput>
+                    <TextInput style={styles.inputLogin} placeholder="Ex: email@example.com" keyboardType="email-address" onChangeText={setEmail}></TextInput>
 
                     <Text style={styles.textLogin}>
                         Senha
                     </Text>
                     <View style={styles.passwordContainer}>
-                        <TextInput style={styles.passwordInput} placeholder="********" keyboardType="default" secureTextEntry={secureText}></TextInput>
+                        <TextInput style={styles.passwordInput} placeholder="********" keyboardType="default" secureTextEntry={secureText} onChangeText={setSenha}></TextInput>
                         <TouchableOpacity
                             onPress={trocarEstadoSenha}
                             style={styles.iconContainer}
@@ -53,7 +80,7 @@ export default function LoginScreen() {
                     </View>
                     <TouchableOpacity
                         style={styles.botaoLogin}
-                        onPress={onLoginPress}
+                        onPress={clicouEmLogar}
                     >
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>

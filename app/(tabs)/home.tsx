@@ -1,20 +1,24 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text, StyleSheet, View, TextInput, Image, TouchableOpacity, FlatList, ScrollView, Alert, ActivityIndicator } from "react-native";
-import { DADOS_EVENTOS } from "./mocks/event";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { buscarEventos } from "../../services/eventService";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { buscarEventoPorId, buscarEventos } from "../../services/eventService";
 import { useEffect, useState } from "react";
+import { Event } from "./types/event";
 
 export default function HomeScreen() {
 
+
     const router = useRouter();
     const [carregando, setCarregando] = useState(false);
+    const [events, setEvents] = useState<Event[]>([]);
 
-    function botaoInscreverPress(idEvento) {
+    function botaoInscreverPress(idEvento: string) {
 
         router.push(`/evento/${idEvento}`);
     }
+
+
 
     function renderEvento({ item }) {
         return (
@@ -54,12 +58,10 @@ export default function HomeScreen() {
         setCarregando(true);
 
         const resultadoBusca = await buscarEventos();
-        
+
         setCarregando(false);
 
-        const resultadoString = JSON.stringify(resultadoBusca)
-
-        Alert.alert("Resultado da busca ", resultadoString);
+        setEvents(resultadoBusca);
     }
 
     // quando a tela for carregada
@@ -81,10 +83,11 @@ export default function HomeScreen() {
                     pois renderiza apenas alguns itens de cada vez, enquanto o map já faz todos de uma vez, o que poderia
                     afetar muito negativamente o desempenho*/}
                     <FlatList
-                        data={DADOS_EVENTOS}
-                        keyExtractor={(item) => item.id}
+                        data={events} // <-- 1. Agora o FlatList consome seu estado de eventos
+                        keyExtractor={(item) => item.id.toString()} // Garante que o ID seja uma string
                         renderItem={renderEvento}
                         contentContainerStyle={styles.body}
+                        showsVerticalScrollIndicator={false}
                     />
 
                 </View>

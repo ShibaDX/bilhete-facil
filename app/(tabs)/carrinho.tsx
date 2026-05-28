@@ -1,28 +1,15 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, Alert } from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity, FlatList, Alert, ActivityIndicator } from "react-native";
 import { DADOS_EVENTOS } from "./mocks/event";
 import { Ionicons } from "@expo/vector-icons";
-import { useCart } from "../../contexts/CartContext";
+import React from 'react';
+import { useCart } from "../../hooks/useCart";
 
 export default function CarrinhoScreen() {
 
     const { itens, carregando, removerItem, limparCarrinho, totalItens, totalFormatado } = useCart();
 
-    function eventoRemoverPress() {
-        Alert.alert(
-            "Remover evento",
-            "Deseja mesmo excluir esse evento do seu carrinho?",
-            [
-                {
-                    text: "Sim"
 
-                },
-                {
-                    text: "Cancelar"
-                }
-            ]
-        );
-    }
 
   const confirmarFinalizacao = () => {
     Alert.alert(
@@ -41,6 +28,14 @@ export default function CarrinhoScreen() {
     );
   };
 
+    if (carregando) {
+    return (
+      <SafeAreaView style={[styles.body, { justifyContent: 'center', alignItems: 'center' }]}>
+        <ActivityIndicator size="large" color="#1f6dff" />
+      </SafeAreaView>
+    );
+  }
+
     function renderEvento({ item }) {
         return (
             <View style={styles.card}>
@@ -58,7 +53,7 @@ export default function CarrinhoScreen() {
 
                 </View>
 
-                <TouchableOpacity style={styles.botaoRemover} onPress={eventoRemoverPress}>
+                <TouchableOpacity style={styles.botaoRemover} >
                     <Ionicons name="trash-outline" size={20} color="#d90429" />
                 </TouchableOpacity>
 
@@ -77,18 +72,19 @@ export default function CarrinhoScreen() {
                     /> Carrinho</Text>
             </View>
 
-            <FlatList
-                data={DADOS_EVENTOS}
-                keyExtractor={(item) => item.id}
-                renderItem={renderEvento}
-                contentContainerStyle={styles.body}
-            />
+      <FlatList
+        data={itens}
+        keyExtractor={(item) => item.id}
+        renderItem={renderEvento}
+        contentContainerStyle={styles.body}
+        showsVerticalScrollIndicator={false}
+      />
 
             <View style={styles.finalizar}>
                 
                 <View>
                     <Text style={styles.valorTotal}>Total: R$200,00</Text>
-                    <Text style={styles.quantidade}>3 itens</Text>
+                    <Text style={styles.quantidade}>{totalItens} {totalItens === 1 ? 'item' : 'itens'}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.botaoFinalizar} onPress={confirmarFinalizacao}>
