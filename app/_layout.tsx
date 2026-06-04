@@ -5,8 +5,11 @@ export default function RootLayout() {
     return (
         <CartProvider>
         <Stack screenOptions={{ headerShown: false }} >
-            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="index" />
             <Stack.Screen name="login" />
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="evento/[id]" />
+            <Stack.Screen name="registrar" />
         </Stack>
         </CartProvider>
     );

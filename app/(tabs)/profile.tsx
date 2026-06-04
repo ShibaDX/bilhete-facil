@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { Image, Text, View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,8 +7,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function ProfileScreen() {
     const router = useRouter();
 
-    function onSairPress() {
-        router.push("/login");
+    async function onSairPress() {
+        await AsyncStorage.removeItem("user-token");
+        router.replace("/login");
     }
 
     return (

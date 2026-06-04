@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Button, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { logar } from "../services/loginService";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -33,6 +34,8 @@ export default function LoginScreen() {
             Alert.alert("Atenção!", "Falha ao realizar login, tente novamente.")
             return;
         }
+
+        await AsyncStorage.setItem("user-token", token);
 
         router.replace("/(tabs)/home"); // replace = limpa a pilha de telas do app
 
@@ -85,6 +88,10 @@ export default function LoginScreen() {
                         <Text style={styles.botaoText}>Entrar</Text>
                     </TouchableOpacity>
 
+                    <Text 
+                    onPress={() => {router.push("/registrar")}}
+                    style={styles.registroText}
+                    > Não possui conta ainda? Registre-se</Text>
                 </View>
             </KeyboardAvoidingView>
         </>
@@ -176,6 +183,11 @@ const styles = StyleSheet.create({
 
     botaoText: {
         color: "#FFF"
+    },
+
+    registroText: {
+        color: "#11a0ff",
+        marginTop: 15
     }
 
 })
